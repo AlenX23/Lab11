@@ -1,0 +1,119 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Model="clr-namespace:WpfApp5.Model" x:Class="WpfApp5.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <CollectionViewSource x:Key="studentViewSource" d:DesignSource="{d:DesignInstance {x:Type Model:Student}, CreateList=True}"/>
+        <CollectionViewSource x:Key="groupViewSource" d:DesignSource="{d:DesignInstance {x:Type Model:Group}, CreateList=True}"/>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Export" Click="MenuItem_Click" />
+        </Menu>
+        <TabControl Width="792">
+            <TabItem DataContext="{StaticResource studentViewSource}" Header="Students" >
+                <DockPanel Width="Auto">
+                    <DockPanel DockPanel.Dock="Left" LastChildFill="True">
+                        <Button Content="Add" DockPanel.Dock="Bottom" Click="AddStudent_Click"/>
+                        <Button Content="Remove" DockPanel.Dock="Bottom" Click="RemoveButton_Click"/>
+                        <ListBox x:Name="studentsList" Width="177" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" />
+                    </DockPanel>
+                    <ContentControl Content="{Binding}">
+                        <ContentControl.ContentTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid x:Name="grid2" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="nameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" LostFocus="ContentControl_LostFocus"/>
+                                    </Grid>
+                                    <Grid x:Name="grid1" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Content="Admission:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                                        <DatePicker x:Name="admissionDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" SelectedDate="{Binding Admission, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" LostFocus="ContentControl_LostFocus"/>
+                                    </Grid>
+                                    <Grid HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Content="Group:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                                        <ComboBox x:Name="groupComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="0,0,-221,0" VerticalAlignment="Center" Width="250"
+                                      ItemsSource="{Binding Source={StaticResource groupViewSource}, Mode=OneWay}" 
+                                      SelectedItem="{Binding Group}">
+                            </ComboBox>
+                                    </Grid>
+                                </Grid>
+
+                            </DataTemplate>
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
+
+
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Groups" DataContext="{StaticResource groupViewSource}">
+                <DockPanel Width="Auto">
+                    <DockPanel DockPanel.Dock="Left" LastChildFill="True">
+                        <Button Content="Add" DockPanel.Dock="Bottom" Click="AddGroup_Click"/>
+                        <Button Content="Remove" DockPanel.Dock="Bottom" Click="RemoveGroup_Click"/>
+                        <ListBox x:Name="groupsList" Width="177" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" />
+                    </DockPanel>
+                    <ContentControl Content="{Binding }">
+                        <ContentControl.ContentTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="Course"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Course}"/>
+
+                                    <TextBlock Grid.Row="1" Text="Number"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Number}"/>
+
+                                    <TextBlock Grid.Row="2" Text="Track"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Track}"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Course}"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Number}"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Track}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
