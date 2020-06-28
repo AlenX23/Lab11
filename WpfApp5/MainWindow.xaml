@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Model="clr-namespace:WpfApp5.Model" x:Class="WpfApp5.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" BorderThickness="0" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <CollectionViewSource x:Key="studentViewSource" d:DesignSource="{d:DesignInstance {x:Type Model:Student}, CreateList=True}"/>
         <CollectionViewSource x:Key="groupViewSource" d:DesignSource="{d:DesignInstance {x:Type Model:Group}, CreateList=True}"/>
     </Window.Resources>
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Export" Click="MenuItem_Click" />
@@ -63,19 +66,17 @@
                                         </Grid.RowDefinitions>
                                         <Label Content="Group:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
                                         <ComboBox x:Name="groupComboBox" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="0,0,-221,0" VerticalAlignment="Center" Width="250"
-                                      ItemsSource="{Binding Source={StaticResource groupViewSource}, Mode=OneWay}" 
-                                      SelectedItem="{Binding Group}">
-                            </ComboBox>
+                                            ItemsSource="{Binding Source={StaticResource groupViewSource}, Mode=OneWay}" 
+                                            SelectedItem="{Binding Group}">
+                                        </ComboBox>
                                     </Grid>
                                 </Grid>
-
                             </DataTemplate>
                         </ContentControl.ContentTemplate>
                     </ContentControl>
-
-
                 </DockPanel>
             </TabItem>
+            
             <TabItem Header="Groups" DataContext="{StaticResource groupViewSource}">
                 <DockPanel Width="Auto">
                     <DockPanel DockPanel.Dock="Left" LastChildFill="True">

@@ -5,17 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Model="clr-namespace:WpfApp5.Model" x:Class="WpfApp5.NewStudent"
         mc:Ignorable="d"
-        Title="NewStudent" Height="450" Width="800" Loaded="Window_Loaded">
-    <Window.Resources>
-        <Model:Student x:Key="studentViewSource"/>
-        <CollectionViewSource x:Key="groupViewSource" d:DesignSource="{d:DesignInstance {x:Type Model:Group}, CreateList=True}"/>
-    </Window.Resources>
+        Title="NewStudent" Height="408" Width="600" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" MinWidth="600" MinHeight="408" MaxWidth="600" MaxHeight="408">
+    
     <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button x:Name="okButton" Content="OK" Margin="5" Width="160" Height="31" IsDefault="True" Click="OkButton_Click"/>
-            <Button x:Name="cancelButton" Content="Cancel" Margin="5" Width="160" IsCancel="True"/>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="430,0,9.6,0" Height="36">
+            <Button x:Name="okButton" Content="OK" Margin="5" Width="61" Height="19.2" IsDefault="True" Click="OkButton_Click"/>
+            <Button x:Name="cancelButton" Content="Cancel" Margin="5" Width="61" IsCancel="True" Height="19.2"/>
         </StackPanel>
-        <ContentControl Content="{Binding Source={StaticResource studentViewSource}}" Width="792" >
+        <ContentControl Content="{Binding Source={StaticResource studentViewSource}}" Width="462" Margin="0,10,0,-0.2" >
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <Grid>

@@ -30,35 +30,22 @@ namespace WpfApp5
             foreach (var value in data)
             {
                 Row row = new Row();
+                row.Append(new Cell(new CellValue(value.Id.ToString())));
 
-                row.Append(
-                    new Cell(
-                        new CellValue(value.Id.ToString())
-                        )
-               );
-
-                var name = new Cell(
-                    new CellValue(value.Name)
-                );
+                var name = new Cell(new CellValue(value.Name));
                 name.DataType = new EnumValue<CellValues>(CellValues.String);
                 row.Append(name);
 
-                var admission = new Cell(
-                    new CellValue(value.Admission.ToString())
-                   );
+                var admission = new Cell(new CellValue(value.Admission.ToString()));
                 admission.DataType = new EnumValue<CellValues>(CellValues.Date);
                 row.Append(admission);
 
-                var track = new Cell
-                    (
-                    new CellValue(value.Group.Track.ToString())
-                    );
+                var track = new Cell(new CellValue(value.Group.Track.ToString()));
                 track.DataType = new EnumValue<CellValues>(CellValues.String);
                 row.Append(track);
 
                 row.Append(new Cell(new CellValue(value.Group.Course.ToString())));
                 row.Append(new Cell(new CellValue(value.Group.Number.ToString())));
-
                 sheetData.Append(row);
             }
 

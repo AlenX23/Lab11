@@ -106,6 +106,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Message.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +120,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Message.xaml.cs">
+      <DependentUpon>Message.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\EFContext.cs" />
     <Compile Include="Model\Group.cs" />
     <Compile Include="Model\Student.cs" />

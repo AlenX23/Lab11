@@ -1,23 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Data;
 using System.Data.Entity;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace WpfApp5
 {
     public partial class MainWindow : Window
     {
-        Model.EFContext db = (Application.Current as App).db;
-
-        CollectionViewSource studentViewSource;
-        CollectionViewSource groupViewSource;
-
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        Model.EFContext db = (Application.Current as App).db;
+
+        CollectionViewSource studentViewSource;
+        CollectionViewSource groupViewSource;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -69,7 +70,7 @@ namespace WpfApp5
     
 
             var newStudentDialog = new NewStudent();
-            if(newStudentDialog.ShowDialog() == true)
+            if (newStudentDialog.ShowDialog() == true)
             {
                 var student = (Model.Student)(newStudentDialog.FindResource("studentViewSource"));
                 db.Students.Add(student);
@@ -90,7 +91,6 @@ namespace WpfApp5
             {
                 var group = (Model.Group)(newGroupDialog.FindResource("groupViewSource"));
                 db.Groups.Add(group);
-                //(this.Resources["groupViewSource"] as CollectionViewSource).View.Refresh();
             }
         }
 
@@ -102,14 +102,31 @@ namespace WpfApp5
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var export = new StudentsToXLSProvider(studentViewSource.Source as IEnumerable<Model.Student>);
-            string name = ".xlsx";
+            var newExportDialog = new Message();
 
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            if (saveDialog.ShowDialog() == true)
+            if (newExportDialog.ShowDialog() == true)
             {
-                export.ExportTo(saveDialog.FileName + name);
-                MessageBox.Show($"Экспортировано в файл {saveDialog.FileName}", "Уведомление");
+                if (newExportDialog.DialogResult == true) 
+                {
+
+                    SaveFileDialog saveDialog = new SaveFileDialog();
+                    if (saveDialog.ShowDialog() == true)
+                    {
+                        var studentViewSource = ((CollectionViewSource)(this.FindResource("studentViewSource")));
+                        var studentsCollection = studentViewSource.Source as ObservableCollection<Model.Student>;
+
+                        var currentGroup = newExportDialog.Group;
+
+                        var data = from student in studentsCollection
+                                   where student.Group == currentGroup
+                                   select student;
+
+                        var export = new StudentsToXLSProvider(data);
+
+                        export.ExportTo($"{saveDialog.FileName}.xlsx");
+                        MessageBox.Show($"Экспортировано в файл {saveDialog.FileName}", "Уведомление");
+                    }
+                }
             }
         }
     }

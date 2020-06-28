@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Model="clr-namespace:WpfApp5.Model" x:Class="WpfApp5.NewGroup"
         mc:Ignorable="d"
-        Title="NewGroup" Height="450" Width="800">
+        Title="NewGroup" Height="408" Width="600" WindowStartupLocation="CenterScreen" MinWidth="600" MinHeight="408" MaxWidth="600" MaxHeight="408">
     <Window.Resources>
         <Model:Group x:Key="groupViewSource"/>
     </Window.Resources>
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Height="84" Margin="612,0,-0.4,0">
+    <DockPanel Margin="0,0,4.2,9.4">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Height="27" Margin="415,0,10.6,0">
             <Button x:Name="OK" Content="OK" HorizontalAlignment="Left"
-                    VerticalAlignment="Top" Width="68" Click="OkButton_Click" RenderTransformOrigin="0.497,0.458"/>
+                    VerticalAlignment="Top" Width="61" Click="OkButton_Click" RenderTransformOrigin="0.497,0.458"/>
             <Button Content="Canel" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="65" IsCancel="True" Margin="25,0,0,0"/>
         </StackPanel>
-        <ContentControl Content="{Binding Source={StaticResource groupViewSource}}" Margin="0,0,0,28" RenderTransformOrigin="0.492,0.507" Width="578">
+        <ContentControl Content="{Binding Source={StaticResource groupViewSource}}" Margin="0,10,0,28.6" RenderTransformOrigin="0.492,0.507" Width="480">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
                     <Grid>

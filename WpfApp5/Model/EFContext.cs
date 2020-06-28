@@ -1,14 +1,10 @@
 namespace WpfApp5.Model
 {
-    using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
 
     public partial class EFContext : DbContext
     {
-        public EFContext()
-            : base("name=EFContext")
+        public EFContext(): base("name=EFContext")
         {
         }
 
